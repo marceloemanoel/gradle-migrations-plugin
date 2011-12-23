@@ -16,7 +16,7 @@ class MigrationPlugin implements Plugin<Project> {
     project.tasks.init = new InitTask()
     
     project.task('migrate') << {
-      println "j‡ pode migrar alguma coisa"
+      println "do something!"
     }
   
   }

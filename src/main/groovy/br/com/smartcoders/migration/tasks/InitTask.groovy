@@ -25,11 +25,8 @@ public class InitTask extends DefaultTask {
       
       new File("development.properties", environments) << new File("./resources/environments/development.properties").text
       
-      [
-        environments,
-        scripts,
-        drivers
-      ].each it.mkdirs()
+      [environments, scripts, drivers].each it.mkdirs()
+      
       logger.info "Migrations directory created at '${baseDir.absolutePath}'."
     }
     else{
