@@ -1,0 +1,8 @@
+apply plugin: "eclipse"
+apply plugin: 'groovy'
+
+dependencies {
+    compile gradleApi()
+    groovy localGroovy()
+}
+
