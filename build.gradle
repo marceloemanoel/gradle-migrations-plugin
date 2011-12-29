@@ -3,6 +3,7 @@ apply plugin: 'groovy'
 
 dependencies {
     compile gradleApi()
+    compile "org.mybatis:mybatis:3.0.6" 
     groovy localGroovy()
 }
 
