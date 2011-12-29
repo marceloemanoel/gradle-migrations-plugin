@@ -1,36 +1,44 @@
 package br.com.smartcoders.migration.tasks;
 
-import org.gradle.api.DefaultTask
-import org.gradle.api.internal.TaskOutputsInternal
-import org.gradle.api.tasks.TaskAction
+import org.gradle.api.DefaultTask;
+import org.gradle.api.tasks.JavaExec;
+import org.gradle.api.tasks.TaskAction;
 
-public class InitTask extends DefaultTask {
+class InitTask extends JavaExec {
   
-  def description = "Create the base directory for migrations"
-  def group = "MIGRATIONS"
-  def baseDir = file("migrations")
+  File baseDir;
   
-  def InitTask(){
-    outputs.dir baseDir
+  public InitTask(){
+    setDescription("Create migrations structure");
+    setGroup("Migration");
   }
   
-  @TaskAction
-  def void action() {
-    if(!baseDir.exists()){
-      logger.info "Creating migrations directory."
-      
-      def environments = new File("environments", baseDir)
-      def scripts = new File("scripts", baseDir)
-      def drivers = new File("drivers", baseDir)
-      
-      new File("development.properties", environments) << new File("./resources/environments/development.properties").text
-      
-      [environments, scripts, drivers].each it.mkdirs()
-      
-      logger.info "Migrations directory created at '${baseDir.absolutePath}'."
+  void createFileFromTemplates(file, template){
+    String content = InitTask.class.getResourceAsStream("/templates/${template}").text
+    
+    file << content
+  }
+  
+  void copyEnvironment(environments) {
+    String resource = InitTask.class.getResourceAsStream("/templates/environments.properties").text;
+    File output = new File(environments, "development.properties");
+    
+    output << resource  
+  }
+
+    @TaskAction
+  void createDirectories() {
+    logger.info "Creating directory."
+    
+    File environments = new File("environments", baseDir);
+    File scripts = new File("scripts", baseDir);
+    
+    [environments, scripts].each {
+      it.mkdirs();
     }
-    else{
-      logger.info "Migrations directory already exists."
-    }
+    
+    copyEnvironment(environments)
+    
+    logger.info "Directory created at '${baseDir.absolutePath}'."
   }
 }
