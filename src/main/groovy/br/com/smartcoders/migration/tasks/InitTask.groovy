@@ -1,43 +1,46 @@
 package br.com.smartcoders.migration.tasks;
 
-import org.gradle.api.DefaultTask;
-import org.gradle.api.tasks.JavaExec;
-import org.gradle.api.tasks.TaskAction;
+import org.apache.ibatis.migration.commands.InitializeCommand
+import org.gradle.api.DefaultTask
+import org.gradle.api.artifacts.Configuration;
+import org.gradle.api.tasks.TaskAction
 
-class InitTask extends JavaExec {
+class InitTask extends DefaultTask {
   
-  File baseDir;
+  File baseDir
+  String environment
   
   public InitTask(){
     setDescription("Create migrations structure");
     setGroup("Migration");
   }
   
-  void createFileFromTemplates(file, template){
-    String content = InitTask.class.getResourceAsStream("/templates/${template}").text
-    
-    file << content
-  }
-  
-  void copyEnvironment(environments) {
-    String resource = InitTask.class.getResourceAsStream("/templates/environments.properties").text;
-    File output = new File(environments, "development.properties");
-    
-    output << resource  
-  }
-
-    @TaskAction
+  @TaskAction
   void createDirectories() {
     logger.info "Creating directory."
     
-    File environments = new File("environments", baseDir);
-    File scripts = new File("scripts", baseDir);
+    if(!baseDir.exists())
+      baseDir.mkdirs();
     
-    [environments, scripts].each {
-      it.mkdirs();
+    def command = new InitializeCommand(baseDir, "development", true)
+    command.execute()
+    
+    File driversDir = new File(baseDir, "drivers");
+    driversDir.deleteDir();
+    
+    File environmentsDir = new File(baseDir, "environments")
+    
+    def props = new Properties()
+    def devEnv = new File(environmentsDir,"development.properties")
+    devEnv.withInputStream { stream -> 
+      props.load(stream) 
     }
     
-    copyEnvironment(environments)
+    props.driver_path = getProject().getConfigurations().migrationDriver.singleFile.parent
+    
+    devEnv.withOutputStream { out ->
+      props.store(out, "")
+    }
     
     logger.info "Directory created at '${baseDir.absolutePath}'."
   }
