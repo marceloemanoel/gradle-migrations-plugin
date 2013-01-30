@@ -2,10 +2,7 @@ package br.com.smartcoders.migration.plugin;
 
 import org.gradle.api.*
 import org.gradle.api.artifacts.Configuration.State
-
-import br.com.smartcoders.migration.tasks.InitTask
-import br.com.smartcoders.migration.tasks.UpTask
-
+import br.com.smartcoders.migration.tasks.*
 
 class MigrationPlugin implements Plugin<Project> {
   
@@ -19,18 +16,35 @@ class MigrationPlugin implements Plugin<Project> {
       migrationDriver
       migrations
     }
+
     project.dependencies {
       "migrations"  "org.mybatis:mybatis:3.0.6" 
     }
     
-    project.task('init', type: InitTask) {
-      baseDir = new File(convention.baseDir)
+    project.task('migrateInit', type: InitTask) {
+      baseDir = project.file(convention.baseDir)
+	  environment = convention.environment
+	  force = convention.force
     }
     
-    project.task("up", type: UpTask) {
-      baseDir = new File(convention.baseDir)
-      if(project.hasProperty("stepCount"))
-      stepCounter = project.stepCount
+    project.task("migrateUp", type: UpTask) {
+      baseDir = project.file(convention.baseDir)
+	  environment = convention.environment
+	  force = convention.force
+	  if(project.hasProperty("stepCount")) {
+		  stepCounter = project.stepCount
+	  }
     }
+	
+	project.task("migrateBootstrap", type: BootstrapTask) {
+      baseDir = project.file(convention.baseDir)
+	  environment = convention.environment
+	  force = convention.force
+    }
+
+	project.task("migrateDriver", type: DriverTask) {
+	  baseDir = project.file(convention.baseDir)
+	  environment = convention.environment
+	}
   }
 }

@@ -9,6 +9,7 @@ class InitTask extends DefaultTask {
   
   File baseDir
   String environment
+  Boolean force
   
   public InitTask(){
     setDescription("Create migrations structure");
@@ -17,31 +18,23 @@ class InitTask extends DefaultTask {
   
   @TaskAction
   void createDirectories() {
-    logger.info "Creating directory."
     
-    if(!baseDir.exists())
-      baseDir.mkdirs();
+    if(baseDir.exists() && force) {
+	  logger.info "Deleting directory."
+	  baseDir.deleteDir()
+    }
+
+	if (!baseDir.exists()) {
+		logger.info "Creating directory."
+		baseDir.mkdirs();
+	} else {
+	   logger.info "migrations dir already exists: " + baseDir.getAbsolutePath()
+	   return
+	}
     
-    def command = new InitializeCommand(baseDir, "development", true)
+    def command = new InitializeCommand(baseDir, environment, force)
     command.execute()
-    
-    File driversDir = new File(baseDir, "drivers");
-    driversDir.deleteDir();
-    
-    File environmentsDir = new File(baseDir, "environments")
-    
-    def props = new Properties()
-    def devEnv = new File(environmentsDir,"development.properties")
-    devEnv.withInputStream { stream -> 
-      props.load(stream) 
-    }
-    
-    props.driver_path = getProject().getConfigurations().migrationDriver.singleFile.parent
-    
-    devEnv.withOutputStream { out ->
-      props.store(out, "")
-    }
-    
+
     logger.info "Directory created at '${baseDir.absolutePath}'."
   }
 }

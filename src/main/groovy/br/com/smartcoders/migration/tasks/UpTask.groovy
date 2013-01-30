@@ -9,6 +9,7 @@ class UpTask extends DefaultTask {
   File baseDir
   String environment
   String stepCounter
+  Boolean force
   
   public UpTask(){
     setDescription("Execute migrations");
@@ -17,7 +18,7 @@ class UpTask extends DefaultTask {
   
   @TaskAction
   def executeMigrations() {
-    def command = new UpCommand(baseDir, "development", true)
+    def command = new UpCommand(baseDir, environment, force)
     command.execute(stepCounter)
   }
   
