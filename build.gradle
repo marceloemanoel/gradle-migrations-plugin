@@ -1,21 +1,17 @@
+repositories { mavenCentral() }
+
 apply plugin: "eclipse"
 apply plugin: 'groovy'
 apply plugin: 'maven'
 
-repositories {
-  mavenCentral()
-}
-
 dependencies {
     compile gradleApi()
-    compile "org.mybatis:mybatis:3.0.6" 
+    compile "org.mybatis:mybatis:3.0.6"
     groovy localGroovy()
 }
 
-task wrapper(type:Wrapper) {
-  gradleVersion = '1.3'
-}
+task wrapper(type:Wrapper) { gradleVersion = '1.4' }
 
 group = "br.com.smartcoders"
 archivesBaseName = "migration"
-version = 0.1
+version = 0.2
