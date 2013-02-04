@@ -8,6 +8,7 @@ class MigrationPluginConvention {
   def baseDir = "sql"
   def environment = "development"
   def force = false
+  def driversDir = "${baseDir}/drivers"
   
   public MigrationPluginConvention(Project project) {
     this.project = project

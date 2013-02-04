@@ -42,6 +42,7 @@ class MigrationPlugin implements Plugin<Project> {
 
         project.task("migrateDriver", type: DriverTask) {
             baseDir = project.file(convention.baseDir)
+            driversDir = project.file(convention.driversDir)
         }
 
         project.task("migrateStatus", type: StatusTask, dependsOn: 'migrateDriver') {
@@ -73,13 +74,9 @@ class MigrationPlugin implements Plugin<Project> {
             }
         }
 
-        project.task("migrateClean", type: CleanTask) {
-            baseDir = project.file(convention.baseDir)
-        }
-
         project.clean {
             doLast{
-                project.tasks.migrateClean.execute()
+                project.tasks.cleanMigrateDriver.execute()
             }
         }
     }
