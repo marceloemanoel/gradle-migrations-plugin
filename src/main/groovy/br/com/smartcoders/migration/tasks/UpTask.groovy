@@ -12,7 +12,7 @@ class UpTask extends DefaultTask {
     Boolean force
 
     public UpTask(){
-        setDescription("Execute migrations");
+        setDescription("Execute migrations up command.Configurable params: steps");
         setGroup("Migration");
     }
 

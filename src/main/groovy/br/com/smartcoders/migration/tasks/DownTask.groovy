@@ -13,7 +13,7 @@ class DownTask extends DefaultTask {
     String steps = ""
     
     public DownTask(){
-      setDescription("Executes migration down command");
+      setDescription("Executes migration down command.Configurable params: steps");
       setGroup("Migration");
     }
     

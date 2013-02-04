@@ -1,11 +1,15 @@
 package br.com.smartcoders.migration.tasks;
 
 import org.gradle.api.DefaultTask
+import org.gradle.api.Task
+import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 
 class DriverTask extends DefaultTask {
-
     File baseDir
+
+    @OutputDirectory
+    File driversDir
 
     public DriverTask(){
         setDescription("Copy and link jdbc driver");
@@ -14,15 +18,9 @@ class DriverTask extends DefaultTask {
 
     @TaskAction
     void copyDriver() {
-
         if(! baseDir.exists()) {
             logger.error "did not find dir: " + baseDir.getAbsolutePath()
             return
-        }
-
-        File driversDir = new File(baseDir, "drivers")
-        if (! driversDir.exists()) {
-            driversDir.mkdirs()
         }
 
         File gradleCachedDriver = project.getConfigurations().migrationDriver.singleFile

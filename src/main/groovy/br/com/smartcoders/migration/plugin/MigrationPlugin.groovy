@@ -17,7 +17,7 @@ class MigrationPlugin implements Plugin<Project> {
             migrations
         }
 
-        project.dependencies { "migrations"  "org.mybatis:mybatis:3.0.6"  }
+        project.dependencies { "migrations"  "org.mybatis:mybatis:3.0.6" }
 
         project.task('migrateInit', type: InitTask) {
             baseDir = project.file(convention.baseDir)
@@ -42,6 +42,7 @@ class MigrationPlugin implements Plugin<Project> {
 
         project.task("migrateDriver", type: DriverTask) {
             baseDir = project.file(convention.baseDir)
+            driversDir = project.file(convention.driversDir)
         }
 
         project.task("migrateStatus", type: StatusTask, dependsOn: 'migrateDriver') {
@@ -56,6 +57,26 @@ class MigrationPlugin implements Plugin<Project> {
             force = convention.force
             if(project.hasProperty("steps")) {
                 steps = project.steps
+            }
+        }
+
+        project.task("migrateNew", type: NewTask, dependsOn: 'migrateDriver') {
+            baseDir = project.file(convention.baseDir)
+            environment = convention.environment
+            force = convention.force
+
+            if(project.hasProperty("des")) {
+                fileDescription = project.des
+            }
+
+            if(project.hasProperty("template")) {
+                template = project.template
+            }
+        }
+
+        project.clean {
+            doLast{
+                project.tasks.cleanMigrateDriver.execute()
             }
         }
     }
