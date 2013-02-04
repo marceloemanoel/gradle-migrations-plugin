@@ -1,11 +1,11 @@
 package br.com.smartcoders.migration.plugin;
 
-import org.gradle.api.*;
+import org.gradle.api.*
 
 class MigrationPluginConvention {
   
   Project project
-  def baseDir = "migrations"
+  def baseDir = "sql"
   def environment = "development"
   def force = false
   
