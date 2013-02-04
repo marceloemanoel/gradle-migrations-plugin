@@ -17,6 +17,7 @@ class CleanTask extends DefaultTask {
         File driverFolder = new File(baseDir, "drivers")
         if (driverFolder.exists()) {
             driverFolder.listFiles().each { it.delete() }
+            driverFolder.deleteDir()
         }
     }
 }
