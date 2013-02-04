@@ -58,5 +58,15 @@ class MigrationPlugin implements Plugin<Project> {
                 steps = project.steps
             }
         }
+
+        project.task("migrateClean", type: CleanTask) {
+            baseDir = project.file(convention.baseDir)
+        }
+
+        project.clean {
+            doLast{
+                project.tasks.migrateClean.execute()
+            }
+        }
     }
 }

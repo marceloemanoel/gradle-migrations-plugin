@@ -22,16 +22,4 @@ class BootstrapTask extends DefaultTask {
         command.execute()
     }
 
-    @Override
-    public Task doLast(Closure action) {
-        def clean = {
-            logger.info "cleaning the drivers folder..."
-            File driverFolder = new File(baseDir, "drivers")
-            if (driverFolder.exists()) {
-                File[] files = driverFolder.listFiles()
-                files.each { it.delete() }
-            }            
-        }
-        return super.doLast(clean << action);
-    }
 }
