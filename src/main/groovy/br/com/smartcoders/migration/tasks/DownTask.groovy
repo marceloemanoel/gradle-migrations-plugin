@@ -21,6 +21,7 @@ class DownTask extends DefaultTask {
     void status()
     {
         def command = new DownCommand(baseDir, environment, force)
+        updateDriverClassLoader(command)
         command.execute(steps)
     }
    

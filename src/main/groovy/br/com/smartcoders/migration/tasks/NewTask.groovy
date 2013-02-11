@@ -1,11 +1,10 @@
 package br.com.smartcoders.migration.tasks
 
 import org.apache.ibatis.migration.commands.NewCommand
-import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 import org.gradle.cli.CommandLineArgumentException
 
-class NewTask extends DefaultTask {
+class NewTask extends BaseTask {
     File baseDir
     String environment
     String template
@@ -13,7 +12,7 @@ class NewTask extends DefaultTask {
     Boolean force
 
     public NewTask(){
-        setDescription("Execute migrations new command.Configurable params: steps");
+        setDescription("Execute migrations new command.Configurable params: des, template");
         setGroup("Migration");
     }
 
@@ -24,6 +23,7 @@ class NewTask extends DefaultTask {
             " \nUsage: gradle migrateNew -Pdes=\"your description here\" [-Ptemplate=\"template path\"]")
         }
         def command = new NewCommand(baseDir, environment, template, force)
+        updateDriverClassLoader(command)
         command.execute(fileDescription)
     }
 }

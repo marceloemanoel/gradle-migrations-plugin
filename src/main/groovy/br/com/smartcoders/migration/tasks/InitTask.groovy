@@ -1,11 +1,9 @@
 package br.com.smartcoders.migration.tasks;
 
 import org.apache.ibatis.migration.commands.InitializeCommand
-import org.gradle.api.DefaultTask
-import org.gradle.api.artifacts.Configuration;
 import org.gradle.api.tasks.TaskAction
 
-class InitTask extends DefaultTask {
+class InitTask extends BaseTask {
   
   File baseDir
   String environment
@@ -33,6 +31,7 @@ class InitTask extends DefaultTask {
 	}
     
     def command = new InitializeCommand(baseDir, environment, force)
+    updateDriverClassLoader(command)
     command.execute()
 
     logger.info "Directory created at '${baseDir.absolutePath}'."
