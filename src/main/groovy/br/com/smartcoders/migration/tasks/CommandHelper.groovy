@@ -2,13 +2,13 @@ package br.com.smartcoders.migration.tasks;
 
 import org.apache.ibatis.migration.commands.BaseCommand
 import org.gradle.api.DefaultTask
+import org.gradle.api.Project;
 
 
 
-public class BaseTask extends DefaultTask {
+final class CommandHelper {
 
-    protected updateDriverClassLoader(BaseCommand command)
-    {
+    public static updateDriverClassLoader(Project project, BaseCommand command) {
         command.setDriverClassLoader(new URLClassLoader(project.getConfigurations().migrationDriver.singleFile.toURI().toURL()))
     }
 }

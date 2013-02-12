@@ -1,9 +1,10 @@
 package br.com.smartcoders.migration.tasks;
 
 import org.apache.ibatis.migration.commands.UpCommand
+import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 
-class UpTask extends BaseTask {
+class UpTask extends DefaultTask {
 
     File baseDir
     String environment
@@ -18,7 +19,7 @@ class UpTask extends BaseTask {
     @TaskAction
     def executeMigrations() {
         def command = new UpCommand(baseDir, environment, force)
-        updateDriverClassLoader(command)
+        CommandHelper.updateDriverClassLoader(project, command)
         command.execute(steps)
     }
 }

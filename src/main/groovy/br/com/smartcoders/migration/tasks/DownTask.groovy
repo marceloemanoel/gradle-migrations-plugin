@@ -9,20 +9,18 @@ class DownTask extends DefaultTask {
     File baseDir
     String environment
     Boolean force
-    
+
     String steps = ""
-    
+
     public DownTask(){
-      setDescription("Executes migration down command.Configurable params: steps");
-      setGroup("Migration");
+        setDescription("Executes migration down command.Configurable params: steps");
+        setGroup("Migration");
     }
-    
+
     @TaskAction
-    void status()
-    {
+    void status() {
         def command = new DownCommand(baseDir, environment, force)
-        updateDriverClassLoader(command)
+        CommandHelper.updateDriverClassLoader(project, command)
         command.execute(steps)
     }
-   
 }
