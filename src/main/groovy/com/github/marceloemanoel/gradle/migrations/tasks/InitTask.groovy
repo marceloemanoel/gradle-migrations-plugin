@@ -33,7 +33,9 @@ class InitTask extends DefaultTask {
             baseDir.mkdirs()
         }
         
-        new InitializeCommand(baseDir, environment, force).execute()
+        def command = new InitializeCommand(baseDir, environment, force)
+        CommandHelper.updateDriverClassLoader(getProject(), command)
+        command.execute()
         
         logger.info "Directory created at '${baseDir.absolutePath}'."
     }
