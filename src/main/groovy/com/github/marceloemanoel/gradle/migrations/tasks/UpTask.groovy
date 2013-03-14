@@ -6,16 +6,12 @@ import org.gradle.api.tasks.TaskAction
 
 import com.github.marceloemanoel.gradle.migrations.helper.CommandHelper
 
-class UpTask extends DefaultTask {
+class UpTask extends MigrationTask {
 
-    File baseDir
-    String environment
-    String steps
-    Boolean force
+    String steps = ""
 
     public UpTask(){
         setDescription("Execute migrations up command.Configurable params: steps")
-        setGroup("Migration");
     }
 
     @TaskAction

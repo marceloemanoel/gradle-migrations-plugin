@@ -8,7 +8,7 @@ import com.github.marceloemanoel.gradle.migrations.helper.CommandHelper
 
 class DownTask extends MigrationTask {
 
-    String steps
+    String steps = ""
 
     public DownTask(){
         setDescription("Executes migration down command.Configurable params: steps")

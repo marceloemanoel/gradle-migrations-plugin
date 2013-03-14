@@ -43,9 +43,6 @@ class MigrationsPlugin implements Plugin<Project> {
         }
         
         project.task("migrateUp", type: UpTask) {
-            baseDir = project.file(extensionPoint.baseDir)
-            environment = extensionPoint.environment
-            force = extensionPoint.force
             if(project.hasProperty("steps")) {
                 steps = project.steps
             }
