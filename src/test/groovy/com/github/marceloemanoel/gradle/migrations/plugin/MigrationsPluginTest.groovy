@@ -9,6 +9,7 @@ import org.junit.Before
 import org.junit.Test
 
 import com.github.marceloemanoel.gradle.migrations.tasks.BootstrapTask
+import com.github.marceloemanoel.gradle.migrations.tasks.DownTask
 import com.github.marceloemanoel.gradle.migrations.tasks.InitTask
 import com.github.marceloemanoel.gradle.migrations.tasks.UpTask
 
@@ -30,6 +31,13 @@ class MigrationsPluginTest {
     }
 
     @Test
+    void afterApplyPluginProjectShouldHaveMigrateBootstrapTask(){
+        Task task = project.tasks.migrateBootstrap
+        assertNotNull task
+        assertTrue BootstrapTask.class.isInstance(task)
+    }
+
+    @Test
     void afterApplyPluginProjectShouldHaveMigrateUpTask(){
         Task task = project.tasks.migrateUp
         assertNotNull task
@@ -37,9 +45,10 @@ class MigrationsPluginTest {
     }
 
     @Test
-    void afterApplyPluginProjectShouldHaveMigrateBootstrapTask(){
-        Task task = project.tasks.migrateBootstrap
+    void afterApplyPluginProjectShouldHaveMigrateDownTask(){
+        Task task = project.tasks.migrateDown
         assertNotNull task
-        assertTrue BootstrapTask.class.isInstance(task)
+        assertTrue DownTask.class.isInstance(task)
     }
+
 }
