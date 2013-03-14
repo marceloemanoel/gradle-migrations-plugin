@@ -6,6 +6,7 @@ import org.gradle.api.Project
 import com.github.marceloemanoel.gradle.migrations.tasks.BootstrapTask
 import com.github.marceloemanoel.gradle.migrations.tasks.DownTask
 import com.github.marceloemanoel.gradle.migrations.tasks.InitTask
+import com.github.marceloemanoel.gradle.migrations.tasks.NewTask
 import com.github.marceloemanoel.gradle.migrations.tasks.UpTask
 
 class MigrationsPlugin implements Plugin<Project> {
@@ -29,7 +30,27 @@ class MigrationsPlugin implements Plugin<Project> {
             environment = extensionPoint.environment
             force = extensionPoint.force
         }
+        
+        project.task("migrateBootstrap", type: BootstrapTask) {
+            baseDir = project.file(extensionPoint.baseDir)
+            environment = extensionPoint.environment
+            force = extensionPoint.force
+        }
+        
+        project.task("migrateNew", type: NewTask) {
+            baseDir = project.file(extensionPoint.baseDir)
+            environment = extensionPoint.environment
+            force = extensionPoint.force
 
+            if(project.hasProperty("description")) {
+                fileDescription = project.description
+            }
+
+            if(project.hasProperty("template")) {
+                template = project.template
+            }
+        }
+        
         project.task("migrateUp", type: UpTask) {
             baseDir = project.file(extensionPoint.baseDir)
             environment = extensionPoint.environment
@@ -46,12 +67,6 @@ class MigrationsPlugin implements Plugin<Project> {
             if(project.hasProperty("steps")) {
                 steps = project.steps
             }
-        }
-        
-        project.task("migrateBootstrap", type: BootstrapTask) {
-            baseDir = project.file(extensionPoint.baseDir)
-            environment = extensionPoint.environment
-            force = extensionPoint.force
         }
     }
 }
