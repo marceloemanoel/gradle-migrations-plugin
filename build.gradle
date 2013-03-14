@@ -32,6 +32,10 @@ dependencies {
     
 }
 
+task wrapper(type: Wrapper) {
+    gradleVersion = "1.4"
+}
+
 tasks.withType(Compile) {
     options.encoding = "UTF-8"
 } 
