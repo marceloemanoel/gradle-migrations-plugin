@@ -18,19 +18,17 @@ class MigrationsPlugin implements Plugin<Project> {
         def extensionPoint = project.migrations
 
         project.getRepositories().mavenCentral()
+        
         project.configurations {
             migrationDriver
             migrations
         }
+        
         project.dependencies {
             "migrations"  "org.mybatis:mybatis:3.0.6"
         }
 
-        project.task('migrateInit', type: InitTask) {
-            baseDir = project.file(extensionPoint.baseDir)
-            environment = extensionPoint.environment
-            force = extensionPoint.force
-        }
+        project.task('migrateInit', type: InitTask)
         
         project.task("migrateBootstrap", type: BootstrapTask) {
             baseDir = project.file(extensionPoint.baseDir)
