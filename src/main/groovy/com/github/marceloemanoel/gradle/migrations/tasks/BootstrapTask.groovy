@@ -6,23 +6,10 @@ import org.gradle.api.tasks.TaskAction
 
 import com.github.marceloemanoel.gradle.migrations.helper.CommandHelper;
 
-class BootstrapTask extends DefaultTask {
-
-    def File getBaseDir(){
-        project.file(project.migrations.baseDir)
-    }
-    
-    def String getEnvironment() {
-        project.migrations.environment
-    }
-    
-    def Boolean getForce(){
-        project.migrations.force
-    }
+class BootstrapTask extends MigrationTask {
 
     public BootstrapTask(){
-        setDescription("Bootstrap migrations");
-        setGroup("Migration");
+        setDescription("Bootstrap migrations")
     }
 
     @TaskAction

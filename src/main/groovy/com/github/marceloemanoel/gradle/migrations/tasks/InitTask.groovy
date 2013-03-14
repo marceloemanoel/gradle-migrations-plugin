@@ -6,23 +6,10 @@ import org.gradle.api.tasks.TaskAction
 
 import com.github.marceloemanoel.gradle.migrations.helper.CommandHelper
 
-class InitTask extends DefaultTask {
+class InitTask extends MigrationTask {
 
-    def File getBaseDir(){
-        project.file(project.migrations.baseDir)
-    }
-    
-    def String getEnvironment() {
-        project.migrations.environment
-    }
-    
-    def Boolean getForce(){
-        project.migrations.force
-    }
-    
     public InitTask(){
         setDescription("Create migrations structure")
-        setGroup("Migration")
     }
 
     @TaskAction
@@ -33,7 +20,7 @@ class InitTask extends DefaultTask {
                 baseDir.deleteDir()
             }
             else{
-                logger.info "Migrations directory already exists: " + baseDir.getAbsolutePath()
+                logger.info "Migrations directory already exists: ${baseDir.absolutePath}"
                 return
             }
         }
