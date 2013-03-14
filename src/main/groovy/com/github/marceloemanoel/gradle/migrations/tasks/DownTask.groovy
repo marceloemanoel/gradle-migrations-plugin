@@ -6,16 +6,12 @@ import org.gradle.api.tasks.TaskAction
 
 import com.github.marceloemanoel.gradle.migrations.helper.CommandHelper
 
-class DownTask extends DefaultTask {
+class DownTask extends MigrationTask {
 
-    File baseDir
-    String environment
-    Boolean force
     String steps
 
     public DownTask(){
         setDescription("Executes migration down command.Configurable params: steps")
-        setGroup("Migration")
     }
 
     @TaskAction
