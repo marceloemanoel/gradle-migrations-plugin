@@ -1,0 +1,93 @@
+apply plugin: "groovy"
+apply plugin: "maven"
+apply plugin: "signing"
+apply plugin: "eclipse"
+
+group = "com.github.marceloemanoel"
+archivesBaseName="gradle-migrations"
+version="0.1"
+
+if(!hasProperty("sonatypeUsername")){
+    sonatypeUsername = ""
+}
+
+if(!hasProperty("sonatypePassword")){
+    sonatypePassword = ""
+}
+
+signing {
+    sign configurations.archives
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile gradleApi()
+    groovy localGroovy() 
+    
+    compile "org.mybatis:mybatis:3.0.6"
+    testCompile 'junit:junit:4.11'
+    
+}
+
+tasks.withType(Compile) {
+    options.encoding = "UTF-8"
+} 
+
+task groovydocJar(type: Jar, dependsOn: groovydoc) {
+    classifier = 'javadoc'
+    from 'build/docs/groovydoc'
+}
+ 
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+ 
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+              authentication(userName: sonatypeUsername, password: sonatypePassword)
+            }
+ 
+            pom.project {
+               name 'gradle-migrations-plugin'
+               packaging 'jar'
+               description 'Gradle plugin to integrate mybatis migrations'
+               url 'https://github.com/marceloemanoel/gradle-migrations-plugin'
+ 
+               scm {
+                   url 'git@github.com:marceloemanoel/gradle-migrations-plugin.git'
+                   connection 'scm:git@github.com:marceloemanoel/gradle-migrations-plugin.git'
+                   developerConnection 'scm:git@github.com:marceloemanoel/gradle-migrations-plugin.git'
+               }
+ 
+               licenses {
+                   license {
+                       name 'The Apache Software License, Version 2.0'
+                       url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                       distribution 'repo'
+                   }
+               }
+ 
+               developers {
+                   developer {
+                       id 'marceloemanoel'
+                       name 'Marcelo Emanoel B. Diniz'
+                   }
+               }
+           }
+        }
+    }
+}
+
+artifacts {
+    archives jar
+    archives groovydocJar
+    archives sourcesJar
+}
