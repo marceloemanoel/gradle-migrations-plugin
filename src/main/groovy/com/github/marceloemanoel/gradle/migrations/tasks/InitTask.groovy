@@ -25,7 +25,7 @@ class InitTask extends DefaultTask {
                 baseDir.deleteDir()
             }
             else{
-                logger.info "Migrations dir already exists: " + baseDir.getAbsolutePath()
+                logger.info "Migrations directory already exists: " + baseDir.getAbsolutePath()
                 return
             }
         }
