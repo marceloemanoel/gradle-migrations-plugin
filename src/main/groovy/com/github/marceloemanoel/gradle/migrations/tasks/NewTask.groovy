@@ -7,25 +7,23 @@ import org.gradle.cli.CommandLineArgumentException
 
 import com.github.marceloemanoel.gradle.migrations.helper.CommandHelper;
 
-class NewTask extends DefaultTask {
-    
-    File baseDir
-    String environment
+class NewTask extends MigrationTask {
+
     String template
     String fileDescription
-    Boolean force
 
     public NewTask(){
         setDescription("Execute migrations new command.Configurable params: description, template")
-        setGroup("Migration");
     }
 
     @TaskAction
     def executeMigrations() {
-        if (fileDescription.isEmpty()) {
-            throw new CommandLineArgumentException("Please provide a description for the new file:" +
-            " \nUsage: gradle migrateNew -Pdescription=\"your description here\" [-Ptemplate=\"template path\"]")
+        if (fileDescription == null || fileDescription.isEmpty()) {
+            def msg = "Please provide a description for the new file:\n" +
+                      "Usage: gradle migrateNew -Pdescription=\"your description here\" [-Ptemplate=\"template path\"]"
+            throw new CommandLineArgumentException(msg)
         }
+
         def command = new NewCommand(baseDir, environment, template, force)
         CommandHelper.updateDriverClassLoader(project, command)
         command.execute(fileDescription)

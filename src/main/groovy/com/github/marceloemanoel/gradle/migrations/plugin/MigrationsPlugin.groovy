@@ -33,10 +33,6 @@ class MigrationsPlugin implements Plugin<Project> {
         project.task("migrateStatus", type: StatusTask)
         
         project.task("migrateNew", type: NewTask) {
-            baseDir = project.file(extensionPoint.baseDir)
-            environment = extensionPoint.environment
-            force = extensionPoint.force
-
             if(project.hasProperty("description")) {
                 fileDescription = project.description
             }
