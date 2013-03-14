@@ -12,6 +12,7 @@ import com.github.marceloemanoel.gradle.migrations.tasks.BootstrapTask
 import com.github.marceloemanoel.gradle.migrations.tasks.DownTask
 import com.github.marceloemanoel.gradle.migrations.tasks.InitTask
 import com.github.marceloemanoel.gradle.migrations.tasks.NewTask
+import com.github.marceloemanoel.gradle.migrations.tasks.StatusTask
 import com.github.marceloemanoel.gradle.migrations.tasks.UpTask
 
 class MigrationsPluginTest {
@@ -39,11 +40,19 @@ class MigrationsPluginTest {
     }
 
     @Test
+    void afterApplyPluginProjectShouldHaveMigrateStatusTask(){
+        Task task = project.tasks.migrateStatus
+        assertNotNull task
+        assertTrue StatusTask.class.isInstance(task)
+    }
+
+    @Test
     void afterApplyPluginProjectShouldHaveMigrateNewTask(){
         Task task = project.tasks.migrateNew
         assertNotNull task
         assertTrue NewTask.class.isInstance(task)
     }
+
     @Test
     void afterApplyPluginProjectShouldHaveMigrateUpTask(){
         Task task = project.tasks.migrateUp

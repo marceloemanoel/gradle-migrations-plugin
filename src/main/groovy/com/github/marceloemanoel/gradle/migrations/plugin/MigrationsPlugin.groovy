@@ -7,6 +7,7 @@ import com.github.marceloemanoel.gradle.migrations.tasks.BootstrapTask
 import com.github.marceloemanoel.gradle.migrations.tasks.DownTask
 import com.github.marceloemanoel.gradle.migrations.tasks.InitTask
 import com.github.marceloemanoel.gradle.migrations.tasks.NewTask
+import com.github.marceloemanoel.gradle.migrations.tasks.StatusTask
 import com.github.marceloemanoel.gradle.migrations.tasks.UpTask
 
 class MigrationsPlugin implements Plugin<Project> {
@@ -32,6 +33,12 @@ class MigrationsPlugin implements Plugin<Project> {
         }
         
         project.task("migrateBootstrap", type: BootstrapTask) {
+            baseDir = project.file(extensionPoint.baseDir)
+            environment = extensionPoint.environment
+            force = extensionPoint.force
+        }
+        
+        project.task("migrateStatus", type: StatusTask) {
             baseDir = project.file(extensionPoint.baseDir)
             environment = extensionPoint.environment
             force = extensionPoint.force
