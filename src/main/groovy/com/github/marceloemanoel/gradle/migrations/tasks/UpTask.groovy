@@ -4,20 +4,24 @@ import org.apache.ibatis.migration.commands.UpCommand
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 
+import com.github.marceloemanoel.gradle.migrations.helper.CommandHelper
+
 class UpTask extends DefaultTask {
 
     File baseDir
     String environment
-    String stepCounter
+    String steps
     Boolean force
 
     public UpTask(){
-        setDescription("Execute migrations")
-        setGroup("Migration")
+        setDescription("Execute migrations up command.Configurable params: steps")
+        setGroup("Migration");
     }
 
     @TaskAction
     def executeMigrations() {
-        new UpCommand(baseDir, environment, force).execute(stepCounter)
+        def command = new UpCommand(baseDir, environment, force)
+        CommandHelper.updateDriverClassLoader(getProject(), command)
+        command.execute(steps)
     }
 }
