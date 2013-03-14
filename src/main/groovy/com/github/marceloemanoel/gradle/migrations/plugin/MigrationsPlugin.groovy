@@ -30,12 +30,7 @@ class MigrationsPlugin implements Plugin<Project> {
 
         project.task('migrateInit', type: InitTask)
         project.task("migrateBootstrap", type: BootstrapTask)
-        
-        project.task("migrateStatus", type: StatusTask) {
-            baseDir = project.file(extensionPoint.baseDir)
-            environment = extensionPoint.environment
-            force = extensionPoint.force
-        }
+        project.task("migrateStatus", type: StatusTask)
         
         project.task("migrateNew", type: NewTask) {
             baseDir = project.file(extensionPoint.baseDir)

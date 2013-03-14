@@ -7,15 +7,10 @@ import org.gradle.api.tasks.TaskAction
 import com.github.marceloemanoel.gradle.migrations.helper.CommandHelper
 
 
-class StatusTask extends DefaultTask {
+class StatusTask extends MigrationTask {
     
-    File baseDir
-    String environment
-    Boolean force
-
     public StatusTask() {
         setDescription("Shows migrations status")
-        setGroup("Migration")
     }
 
     @TaskAction
