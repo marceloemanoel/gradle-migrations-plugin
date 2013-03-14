@@ -8,10 +8,18 @@ import com.github.marceloemanoel.gradle.migrations.helper.CommandHelper
 
 class InitTask extends DefaultTask {
 
-    File baseDir
-    String environment
-    Boolean force
-
+    def File getBaseDir(){
+        project.file(project.migrations.baseDir)
+    }
+    
+    def String getEnvironment() {
+        project.migrations.environment
+    }
+    
+    def Boolean getForce(){
+        project.migrations.force
+    }
+    
     public InitTask(){
         setDescription("Create migrations structure")
         setGroup("Migration")
