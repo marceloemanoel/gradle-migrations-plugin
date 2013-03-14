@@ -2,8 +2,8 @@ package com.github.marceloemanoel.gradle.migrations.plugin
 
 class MigrationPluginExtension {
 
-    def baseDir = "migrations"
-    def environment = "development"
-    def force = false
+    def String baseDir = "migrations"
+    def String environment = "development"
+    def Boolean force = false
 
 }
