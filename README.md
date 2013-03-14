@@ -14,9 +14,9 @@ buildScript {
     mavenCentral()
   }
   dependencies {
-    classpath "com.github.marceloemanoel:gradle-migrations-plugin:0.1"
+    classpath "com.github.marceloemanoel:gradle-migrations:0.1"
   }
 }
 
-apply plugin: "gradle-migrations-plugin"
+apply plugin: "gradle-migrations"
 ```
