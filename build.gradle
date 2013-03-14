@@ -5,7 +5,7 @@ apply plugin: "eclipse"
 
 group = "com.github.marceloemanoel"
 archivesBaseName="gradle-migrations"
-version="0.1"
+version="0.2"
 
 if(!hasProperty("sonatypeUsername")){
     sonatypeUsername = ""
