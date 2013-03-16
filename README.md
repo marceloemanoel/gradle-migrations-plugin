@@ -4,13 +4,51 @@ Gradle Migrations Plugin
 Gradle plugin to integrate [mybatis migrations](https://code.google.com/p/mybatis/wiki/Migration) in the build system life cycle. 
 The plugin adds a group of tasks named **Migrations** composed by:
 
-* [migrateInit](#migrateinit) - Create migrations structure
-* [migrateBootstrap](#migratebootstrap) - Bootstrap migrations
-* [migrateStatus](#migratestatus) - Shows migrations status
-* [migrateNew](#migratenew) - Execute migrations new command.Configurable params: description, template
-* [migrateUp](#migrateup) - Execute migrations up command.Configurable params: steps
-* [migrateDown](#migratedown) - Executes migration down command.Configurable params: steps
-
+<table width="100%">
+  <thead>
+    <th>
+      Task
+    </th>
+    <th>
+      Description
+    </th>
+    <th>
+      Parameters
+    </th>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="#migrateinit">migrateInit</a></td>
+      <td>Create migrations repository structure</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="#migratebootstrap">migrateBootstrap</a></td>
+      <td>Use an existing database structure as an starting point for migrations</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="#migratestatus">migrateStatus</a></td>
+      <td>Shows current database status</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="#migratenew">migrateNew</a></td>
+      <td>Create a new migration file.</td>
+      <td>description, template</td>
+    </tr>
+    <tr>
+      <td><a href="#migrateup">migrateUp</a></td>
+      <td>Apply any pending migration following creation order.</td>
+      <td>steps</td>
+    </tr>
+    <tr>
+      <td><a href="#migratedown">migrateDown</a></td>
+      <td>Rewinds the database to a previous stage.</td>
+      <td>steps</td>
+    </tr>
+  </tbody>
+</table>
 
 Install
 =======
@@ -65,13 +103,30 @@ migrations {
 
 All values are optional. The following table presents the default values of each property:
 
-<pre>
-Property      Description                                               Default Value
-==========================================================================================
-baseDir       Defines the base directory containing the migrations      migrations
-environment   Defines the environment used by the tasks                 development
-force         Forces the execution of the tasks                         false
-</pre>
+<table width="100%">
+  <thead>
+    <th>Property</th>
+    <th>Description</th>
+    <th>Default Value</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>baseDir</td>
+      <td>Defines the base directory containing the migrations</td>
+      <td>migrations</td>
+    </tr>
+    <tr>
+      <td>environment</td>
+      <td>Defines the database environment used by the tasks</td>
+      <td>development</td>
+    </tr>
+    <tr>
+      <td>force</td>
+      <td>Forces the execution of the tasks</td>
+      <td>false</td>
+    </tr>
+  </tbody>
+</table>
 
 Available Tasks
 ===============
