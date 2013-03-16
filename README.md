@@ -2,7 +2,7 @@ Gradle Migrations Plugin
 =============================
 
 Gradle plugin to integrate [mybatis migrations](https://code.google.com/p/mybatis/wiki/Migration) in the build system life cycle. 
-The plugin adds a group of tasks named *Migrations* composed by:
+The plugin adds a group of tasks named **Migrations** composed by:
 
 * [migrateInit](#migrateinit) - Create migrations structure
 * [migrateBootstrap](#migratebootstrap) - Bootstrap migrations
@@ -30,27 +30,45 @@ buildScript {
 apply plugin: "migrations"
 ```
 
+Configurations
+==============
+
+The only **required** configuration is made on your scripts dependencies section.
+The plugin add a configuration scope known as `migrationsDriver`. As its name states,
+this configuration scope should contain all JDBC drivers that will be used by your migrations.
+
+To use the migrations with a mysql database for example, one should instruct the build as following:
+
+```groovy
+dependencies {
+  migrationsDriver 'mysql:mysql-connector-java:5+'
+}
+```
+
+This will ensure that the last mysql connector will be downloaded when you first run any migration task,
+it will be cached by gradle and on later calls it will be used from the local repository.
+
 Available Tasks
 ===============
 
 migrateInit
 -----------
-The init command initializes a new ‘migration path’, also called a ‘repository’ (of migration scripts).
-Regardless of whether your working with a new database or an existing one, you’ll run init to create the
-workspace in which you’ll place everything you need to manage database change. Running this
+The init command initializes a new repository’ of migration scripts. You’ll run init once to create the
+workspace in which everything you need to manage database change will be placed. Running this
 command will create the directory specified by the `baseDir` property (which is the directory "migrations"
-by default). 
+by default). In case it already exists the command will fail unless the property `force` is true. 
 
 When the command is completed, the directory will contain the following sub-directories:
 
-> ./environments
+> environments
 
 In the environments folder you will find .properties files that represent your database instances. By
-default a development.properties file is created for you to configure your development time database
-properties. You can also create test.properties and production.properties files. The environment can 
-be specified when running a migration by using the `environment` property (without the path or ".properties" part).
+default a `development.properties` file is created for you to configure your development time database
+properties. You can also create `test.properties`, `production.properties` or even a `anything.properties` file. 
+The environment can be specified when running a migration by using the `environment` property 
+without the path or ".properties" part (the default value is "development").
 
-> ./scripts
+> scripts
 
 This directory contains your migration SQL files. These are the files that contain your DDL to both
 upgrade and downgrade your database structure. By default, the directory will contain the script to
@@ -97,7 +115,9 @@ migrateDown
 Customization
 =============
 
-If you need to change any of the default values you can use a configuration block like this:
+Following the rule of convention over configuration the plugin adds a configuration closure to your build.
+If all default values are good for you, you're ready to go. But if you need to change anything, you'll see that 
+it is an easy task. You only need to write the following on your `build.gradle` file: 
 
 ```groovy
 migrations {
