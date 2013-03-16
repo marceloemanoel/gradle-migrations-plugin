@@ -4,12 +4,12 @@ Gradle Migrations Plugin
 Gradle plugin to integrate [mybatis migrations](https://code.google.com/p/mybatis/wiki/Migration) in the build system life cycle. 
 The plugin adds a group of tasks named *Migrations* composed by:
 
-* [migrateInit](#migrateInit) - Create migrations structure
-* [migrateBootstrap](#migrateBootstrap) - Bootstrap migrations
-* [migrateStatus](#migrateStatus) - Shows migrations status
-* [migrateNew](#migrateNew) - Execute migrations new command.Configurable params: description, template
-* [migrateUp](#migrateUp) - Execute migrations up command.Configurable params: steps
-* [migrateDown](#migrateDown) - Executes migration down command.Configurable params: steps
+* [migrateInit](#migrateinit) - Create migrations structure
+* [migrateBootstrap](#migratebootstrap) - Bootstrap migrations
+* [migrateStatus](#migratestatus) - Shows migrations status
+* [migrateNew](#migratenew) - Execute migrations new command.Configurable params: description, template
+* [migrateUp](#migrateup) - Execute migrations up command.Configurable params: steps
+* [migrateDown](#migratedown) - Executes migration down command.Configurable params: steps
 
 
 Install
@@ -55,8 +55,8 @@ be specified when running a migration by using the `environment` property (witho
 This directory contains your migration SQL files. These are the files that contain your DDL to both
 upgrade and downgrade your database structure. By default, the directory will contain the script to
 create the changelog table, plus one empty example migration script. To create a new migration script,
-use the [migrateNew](#migrateNew) command. To run all pending migrations, use the [migrateUp](#migrateUp) 
-command. To undo the last migration applied, use the [migrateDown](#migrateDown) command etc.
+use the [migrateNew](#migratenew) command. To run all pending migrations, use the [migrateUp](#migrateup) 
+command. To undo the last migration applied, use the [migrateDown](#migratedown) command etc.
 
 migrateBootstrap
 ----------------
@@ -72,7 +72,7 @@ database schema (put such conditional and branching logic in your code or stored
 If you have multiple DDL files, you’ll have to merge them into the single bootstrap file. But worry not,
 it’s the last time you’ll ever modify it. 
 
-In order to run, the [migrateBootstrap command](#migrateBootstrap) need the JDBC driver of your database.
+In order to run, the [migrateBootstrap command](#migratebootstrap) need the JDBC driver of your database.
 The plugin add the configuration `migrationsDriver` to your project. More information [here](#configurations).
 
 migrateStatus
