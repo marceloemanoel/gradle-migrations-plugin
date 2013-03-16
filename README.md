@@ -48,6 +48,31 @@ dependencies {
 This will ensure that the last mysql connector will be downloaded when you first run any migration task,
 it will be cached by gradle and on later calls it will be used from the local repository.
 
+Customization
+=============
+
+Following the rule of convention over configuration the plugin adds a configuration closure to your build.
+If all default values are good for you, you're ready to go. But if you need to change anything, you'll see that 
+it is an easy task. You only need to write the following on your `build.gradle` file: 
+
+```groovy
+migrations {
+   baseDir = "anotherDirectory"
+   environment = "test"
+   force = true
+}
+```
+
+All values are optional. The following table presents the default values of each property:
+
+<pre>
+Property      Description                                               Default Value
+==========================================================================================
+baseDir       Defines the base directory containing the migrations      migrations
+environment   Defines the environment used by the tasks                 development
+force         Forces the execution of the tasks                         false
+</pre>
+
 Available Tasks
 ===============
 
@@ -111,28 +136,3 @@ migrateUp
 
 migrateDown
 -----------
-
-Customization
-=============
-
-Following the rule of convention over configuration the plugin adds a configuration closure to your build.
-If all default values are good for you, you're ready to go. But if you need to change anything, you'll see that 
-it is an easy task. You only need to write the following on your `build.gradle` file: 
-
-```groovy
-migrations {
-   baseDir = "anotherDirectory"
-   environment = "test"
-   force = true
-}
-```
-
-All values are optional the following table presents the default values of each property:
-
-<pre>
-Property      Description                                               Default Value
-==========================================================================================
-baseDir       Defines the base directory containing the migrations      migrations
-environment   Defines the environment used by the tasks                 development
-force         Forces the execution of the tasks                         false
-</pre>
