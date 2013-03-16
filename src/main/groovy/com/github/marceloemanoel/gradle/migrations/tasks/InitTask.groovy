@@ -27,6 +27,9 @@ class InitTask extends MigrationTask {
 
         new InitializeCommand(baseDir, environment, force).execute()
 
+        project.file(new File(baseDir, "drivers")).deleteDir()
+        project.file(new File(baseDir, "README")).delete()
+        
         logger.info "Directory created at '${baseDir.absolutePath}'."
     }
 }
