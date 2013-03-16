@@ -7,6 +7,9 @@ import org.gradle.api.Project
 final class CommandHelper {
 
     public static updateDriverClassLoader(Project project, BaseCommand command) {
-        command.setDriverClassLoader(new URLClassLoader(project.getConfigurations().migrationDriver.singleFile.toURI().toURL()))
+        def dependencies = project.getConfigurations().migrationsDriver.files.collect {
+            it.toURI().toURL()
+        }
+        command.setDriverClassLoader(new URLClassLoader(dependencies.toArray(new URL[dependencies.size])))
     }
 }
