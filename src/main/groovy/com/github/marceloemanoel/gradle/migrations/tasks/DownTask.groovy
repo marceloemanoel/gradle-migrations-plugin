@@ -11,7 +11,7 @@ class DownTask extends MigrationTask {
     String steps = ""
 
     public DownTask(){
-        setDescription("Executes migration down command.Configurable params: steps")
+        setDescription("Rewinds the database to a previous stage. Configurable params: steps")
     }
 
     @TaskAction

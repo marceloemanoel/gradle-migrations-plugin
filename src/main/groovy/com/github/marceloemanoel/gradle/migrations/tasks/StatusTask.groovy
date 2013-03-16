@@ -10,7 +10,7 @@ import com.github.marceloemanoel.gradle.migrations.helper.CommandHelper
 class StatusTask extends MigrationTask {
     
     public StatusTask() {
-        setDescription("Shows migrations status")
+        setDescription("Shows current database status")
     }
 
     @TaskAction

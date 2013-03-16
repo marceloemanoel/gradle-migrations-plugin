@@ -11,7 +11,7 @@ class UpTask extends MigrationTask {
     String steps = ""
 
     public UpTask(){
-        setDescription("Execute migrations up command.Configurable params: steps")
+        setDescription("Apply any pending migration following creation order. Configurable params: steps")
     }
 
     @TaskAction

@@ -13,7 +13,7 @@ class NewTask extends MigrationTask {
     String fileDescription
 
     public NewTask(){
-        setDescription("Execute migrations new command.Configurable params: description, template")
+        setDescription("Create a new migration file. Configurable params: description, template")
     }
 
     @TaskAction
