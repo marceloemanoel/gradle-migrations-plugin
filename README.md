@@ -1,7 +1,7 @@
 Gradle Migrations Plugin
 =============================
 
-Gradle plugin to integrate [mybatis migrations](https://code.google.com/p/mybatis/wiki/Migration) in the build system life cycle. 
+Gradle plugin to integrate [mybatis migrations](https://code.google.com/p/mybatis/wiki/Migration) into the build system life cycle. 
 The plugin adds a group of tasks named **Migrations** composed by:
 
 <table width="100%">
