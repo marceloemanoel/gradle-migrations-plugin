@@ -1,7 +1,7 @@
 Gradle Migrations Plugin
 =============================
 
-Gradle plugin to integrate [mybatis migrations](https://code.google.com/p/mybatis/wiki/Migration) into the build system life cycle. 
+Provide gradle build integration with [mybatis migrations](https://code.google.com/p/mybatis/wiki/Migration). 
 The plugin adds a group of tasks named **Migrations** composed by:
 
 <table width="100%">
@@ -153,7 +153,7 @@ without the path or ".properties" part (the default value is "development").
 This directory contains your migration SQL files. These are the files that contain your DDL to both
 upgrade and downgrade your database structure. By default, the directory will contain the script to
 create the changelog table, plus one empty example migration script. To create a new migration script,
-use the [migrateNew](#migratenew) command. To run all pending migrations, use the [migrateUp](#migrateup) 
+use the [migrateNew](#migratenew) command. To run all pending migrations in order, use the [migrateUp](#migrateup) 
 command. To undo the last migration applied, use the [migrateDown](#migratedown) command etc.
 
 migrateBootstrap
@@ -185,9 +185,91 @@ ID             Applied At          Description
 20130314124533    ...pending...    first migration
 </pre>
 
-migrateUp
----------
+migrateUp and migrateDown
+-------------------------
 
+Theses tasks enable the evolving and devolving of your database. They use the script files inside the scripts directory.
+Every migration script file should have a .sql extension and have both sections **DO** and **UNDO**. As soon you init 
+the migrations repository two files are created for you, the changelog migration and the first migration. The changelog
+migration contains the following code:
 
-migrateDown
------------
+```sql
+--// Create Changelog
+
+-- Default DDL for changelog table that will keep
+-- a record of the migrations that have been run.
+
+-- You can modify this to suit your database before
+-- running your first migration.
+
+-- Be sure that ID and DESCRIPTION fields exist in
+-- BigInteger and String compatible fields respectively.
+
+CREATE TABLE ${changelog} (
+ID NUMERIC(20,0) NOT NULL,
+APPLIED_AT VARCHAR(25) NOT NULL,
+DESCRIPTION VARCHAR(255) NOT NULL
+);
+
+ALTER TABLE ${changelog}
+ADD CONSTRAINT PK_${changelog}
+PRIMARY KEY (id);
+
+--//@UNDO
+
+DROP TABLE ${changelog};
+```
+
+This file is composed of three sections:
+
+* Description: Delimited by `--//`, used to describe the migration in the database.
+
+```sql
+--// Create Changelog
+```
+
+* DO: Everything after the description, used to push forward the database
+
+```sql
+
+-- Default DDL for changelog table that will keep
+-- a record of the migrations that have been run.
+
+-- You can modify this to suit your database before
+-- running your first migration.
+
+-- Be sure that ID and DESCRIPTION fields exist in
+-- BigInteger and String compatible fields respectively.
+
+CREATE TABLE ${changelog} (
+ID NUMERIC(20,0) NOT NULL,
+APPLIED_AT VARCHAR(25) NOT NULL,
+DESCRIPTION VARCHAR(255) NOT NULL
+);
+
+ALTER TABLE ${changelog}
+ADD CONSTRAINT PK_${changelog}
+PRIMARY KEY (id);
+
+```
+
+* UNDO: Everything after the `--//@UNDO` line, used to push backward the database
+
+```sql
+
+DROP TABLE ${changelog};
+```
+
+The task `migrateUp` uses the **DO section** to push forward your database and the `migrateDown`, in its turn, uses the **UNDO
+section** to push backward your database.
+
+Both tasks have a parameter named `steps`. By default its value is **1** for `migrateDown` since you probably want to 
+rollback only the last migration. For `migrateUp` the default value is `Integer.MAX_VALUE` this is because you probanly
+want to execute all upwards pending migrations. The parameter is easily applied through the command line as following:
+
+> gradle migrateUp -Psteps=2
+
+or
+
+> gradle migrateDown -Psteps=3
+
