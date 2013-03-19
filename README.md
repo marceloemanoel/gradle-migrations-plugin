@@ -1,4 +1,4 @@
-Gradle Migrations Plugin [![Build Status](https://travis-ci.org/marceloemanoel/gradle-migrations-plugin.png)](https://travis-ci.org/marceloemanoel/gradle-migrations-plugin)
+Gradle Migrations Plugin [![Build Status](https://travis-ci.org/marceloemanoel/gradle-migrations-plugin.png?branch=master,v0.3)](https://travis-ci.org/marceloemanoel/gradle-migrations-plugin)
 =============================
 
 Provide gradle build integration with [mybatis migrations](https://code.google.com/p/mybatis/wiki/Migration). 
