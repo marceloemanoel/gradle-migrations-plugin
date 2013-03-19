@@ -38,12 +38,12 @@ The plugin adds a group of tasks named **Migrations** composed by:
       <td>description, template</td>
     </tr>
     <tr>
-      <td><a href="#migrateup">migrateUp</a></td>
+      <td><a href="#migrateup-and-migratedown">migrateUp</a></td>
       <td>Apply any pending migration following creation order.</td>
       <td>steps</td>
     </tr>
     <tr>
-      <td><a href="#migratedown">migrateDown</a></td>
+      <td><a href="#migrateup-and-migratedown">migrateDown</a></td>
       <td>Rewinds the database to a previous stage.</td>
       <td>steps</td>
     </tr>
@@ -185,13 +185,12 @@ ID             Applied At          Description
 20130314124533    ...pending...    first migration
 </pre>
 
-migrateUp and migrateDown
--------------------------
-
-Theses tasks enable the evolving and devolving of your database. They use the script files inside the scripts directory.
-Every migration script file should have a .sql extension and have both sections **DO** and **UNDO**. As soon you init 
-the migrations repository two files are created for you, the changelog migration and the first migration. The changelog
-migration contains the following code:
+migrateNew
+----------
+This task enable the creation of new migrations. Every migration script file should have a .sql extension 
+and have both sections **DO** and **UNDO**. As soon you init the migrations repository two files are 
+created for you, the changelog migration and the first migration. The changelog migration contains 
+the following code:
 
 ```sql
 --// Create Changelog
@@ -260,8 +259,22 @@ PRIMARY KEY (id);
 DROP TABLE ${changelog};
 ```
 
-The task `migrateUp` uses the **DO section** to push forward your database and the `migrateDown`, in its turn, uses the **UNDO
-section** to push backward your database.
+The migrateNew task needs **one** parameter to work as expected, the description of what this migration 
+will do to your database. It is used like this:
+
+> gradle migrateNew -Pdescription="This is a sample migration"
+
+This parameter can be abreviated as simple as this:
+
+> gradle migrateNew -Pd="This is a sample migration"
+
+migrateUp and migrateDown
+-------------------------
+
+Theses tasks enable the evolving and devolving of your database. They use the script files inside the scripts directory.
+
+The task `migrateUp` uses the **DO section** of the migration scripts to push forward your database and 
+the `migrateDown`, in its turn, uses its **UNDO section** to push backward your database.
 
 Both tasks have a parameter named `steps`. By default its value is **1** for `migrateDown` since you probably want to 
 rollback only the last migration. For `migrateUp` the default value is `Integer.MAX_VALUE` this is because you probanly
@@ -273,3 +286,39 @@ or
 
 > gradle migrateDown -Psteps=3
 
+It is possible to abreviate it like this:
+
+> gradle migrateUp -Ps=2
+
+or 
+
+> gradle migrateDown -Ps=3
+
+
+License
+=======
+
+Copyright 2012 Marcelo Emanoel B. Diniz
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+Developers
+==========
+
+* [Marcelo Emanoel B. Diniz](http://github.com/marceloemanoel)
+* [Mircea Pop](http://github.com/mircea-pop)
+
+Contributions
+=============
+
+Just fork the project and send a pull request :D
