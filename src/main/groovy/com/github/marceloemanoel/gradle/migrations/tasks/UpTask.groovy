@@ -6,9 +6,7 @@ import org.gradle.api.tasks.TaskAction
 
 import com.github.marceloemanoel.gradle.migrations.helper.CommandHelper
 
-class UpTask extends MigrationTask {
-
-    String steps = ""
+class UpTask extends SteppableMigrationTask {
 
     public UpTask(){
         setDescription("Apply any pending migration following creation order. Configurable params: steps")

@@ -6,9 +6,7 @@ import org.gradle.api.tasks.TaskAction
 
 import com.github.marceloemanoel.gradle.migrations.helper.CommandHelper
 
-class DownTask extends MigrationTask {
-
-    String steps = ""
+class DownTask extends SteppableMigrationTask {
 
     public DownTask(){
         setDescription("Rewinds the database to a previous stage. Configurable params: steps")
