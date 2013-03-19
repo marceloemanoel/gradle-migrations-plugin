@@ -33,6 +33,10 @@ class MigrationsPlugin implements Plugin<Project> {
         project.task("migrateStatus", type: StatusTask)
         
         project.task("migrateNew", type: NewTask) {
+            if(project.hasProperty("d")) {
+                fileDescription = project.d
+                println("description set with ${project.d}")    
+            } else            
             if(project.hasProperty("description")) {
                 fileDescription = project.description
             }
@@ -42,16 +46,7 @@ class MigrationsPlugin implements Plugin<Project> {
             }
         }
         
-        project.task("migrateUp", type: UpTask) {
-            if(project.hasProperty("steps")) {
-                steps = project.steps
-            }
-        }
-        
-        project.task("migrateDown", type: DownTask) {
-            if(project.hasProperty("steps")) {
-                steps = project.steps
-            }
-        }
+        project.task("migrateUp", type: UpTask)
+        project.task("migrateDown", type: DownTask)
     }
 }
