@@ -3,7 +3,7 @@ package com.github.marceloemanoel.gradle.migrations.tasks
 import static org.junit.Assert.*
 
 import org.gradle.api.Project
-import org.gradle.testfixtures.ProjectBuilder;
+import org.gradle.testfixtures.ProjectBuilder
 import org.junit.Before
 import org.junit.Test
 
