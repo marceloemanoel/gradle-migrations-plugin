@@ -7,7 +7,7 @@ class SteppableMigrationTask extends MigrationTask {
             return project.s;
         if(project.hasProperty("steps"))
             return project.steps    
-        "1"
+        ""
     }
     
 }

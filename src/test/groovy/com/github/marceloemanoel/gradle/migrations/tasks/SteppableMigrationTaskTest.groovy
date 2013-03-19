@@ -24,8 +24,8 @@ class SteppableMigrationTaskTest {
     }
 
     @Test
-    void ifNoStepsIsProvidedValueOneIsReturned() {
-        assertEquals("1", task.steps)
+    void ifNoStepsIsProvidedThanAnEmptyValueIsReturned() {
+        assertEquals("", task.steps)
     }
     
     @Test
