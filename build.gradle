@@ -16,6 +16,7 @@ if(!hasProperty("sonatypePassword")){
 }
 
 signing {
+    required { gradle.taskGraph.hasTask("uploadArchives") }
     sign configurations.archives
 }
 
