@@ -11,10 +11,10 @@ import org.junit.Test
 
 import com.github.marceloemanoel.gradle.migrations.plugin.MigrationsPlugin
 
-class InitTaskTest {
+class MigrateInitTest {
 
     def Project project
-    def InitTask task
+    def MigrateInit task
 
     @Before
     void setUp() {

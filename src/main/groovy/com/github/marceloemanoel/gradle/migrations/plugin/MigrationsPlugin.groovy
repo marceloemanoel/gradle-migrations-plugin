@@ -3,12 +3,12 @@ package com.github.marceloemanoel.gradle.migrations.plugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
-import com.github.marceloemanoel.gradle.migrations.tasks.BootstrapTask
-import com.github.marceloemanoel.gradle.migrations.tasks.DownTask
-import com.github.marceloemanoel.gradle.migrations.tasks.InitTask
-import com.github.marceloemanoel.gradle.migrations.tasks.NewTask
-import com.github.marceloemanoel.gradle.migrations.tasks.StatusTask
-import com.github.marceloemanoel.gradle.migrations.tasks.UpTask
+import com.github.marceloemanoel.gradle.migrations.tasks.MigrateBootstrap
+import com.github.marceloemanoel.gradle.migrations.tasks.MigrateDown
+import com.github.marceloemanoel.gradle.migrations.tasks.MigrateInit
+import com.github.marceloemanoel.gradle.migrations.tasks.MigrateNew
+import com.github.marceloemanoel.gradle.migrations.tasks.MigrateStatus
+import com.github.marceloemanoel.gradle.migrations.tasks.MigrateUp
 
 class MigrationsPlugin implements Plugin<Project> {
 
@@ -28,25 +28,11 @@ class MigrationsPlugin implements Plugin<Project> {
             "migrations"  "org.mybatis:mybatis:3.0.6"
         }
 
-        project.task('migrateInit', type: InitTask)
-        project.task("migrateBootstrap", type: BootstrapTask)
-        project.task("migrateStatus", type: StatusTask)
-        
-        project.task("migrateNew", type: NewTask) {
-            if(project.hasProperty("d")) {
-                fileDescription = project.d
-                println("description set with ${project.d}")    
-            } else            
-            if(project.hasProperty("description")) {
-                fileDescription = project.description
-            }
-
-            if(project.hasProperty("template")) {
-                template = project.template
-            }
-        }
-        
-        project.task("migrateUp", type: UpTask)
-        project.task("migrateDown", type: DownTask)
+        project.task('migrateInit', type: MigrateInit)
+        project.task("migrateBootstrap", type: MigrateBootstrap)
+        project.task("migrateStatus", type: MigrateStatus)
+        project.task("migrateNew", type: MigrateNew)
+        project.task("migrateUp", type: MigrateUp)
+        project.task("migrateDown", type: MigrateDown)
     }
 }

@@ -6,9 +6,9 @@ import org.gradle.api.tasks.TaskAction
 
 import com.github.marceloemanoel.gradle.migrations.helper.CommandHelper;
 
-class BootstrapTask extends MigrationTask {
+class MigrateBootstrap extends MigrationTask {
 
-    public BootstrapTask(){
+    public MigrateBootstrap(){
         setDescription("Use an existing database structure as an starting point for migrations")
     }
 

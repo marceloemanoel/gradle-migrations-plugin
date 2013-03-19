@@ -8,12 +8,12 @@ import org.gradle.testfixtures.ProjectBuilder
 import org.junit.Before
 import org.junit.Test
 
-import com.github.marceloemanoel.gradle.migrations.tasks.BootstrapTask
-import com.github.marceloemanoel.gradle.migrations.tasks.DownTask
-import com.github.marceloemanoel.gradle.migrations.tasks.InitTask
-import com.github.marceloemanoel.gradle.migrations.tasks.NewTask
-import com.github.marceloemanoel.gradle.migrations.tasks.StatusTask
-import com.github.marceloemanoel.gradle.migrations.tasks.UpTask
+import com.github.marceloemanoel.gradle.migrations.tasks.MigrateBootstrap
+import com.github.marceloemanoel.gradle.migrations.tasks.MigrateDown
+import com.github.marceloemanoel.gradle.migrations.tasks.MigrateInit
+import com.github.marceloemanoel.gradle.migrations.tasks.MigrateNew
+import com.github.marceloemanoel.gradle.migrations.tasks.MigrateStatus
+import com.github.marceloemanoel.gradle.migrations.tasks.MigrateUp
 
 class MigrationsPluginTest {
 
@@ -29,42 +29,42 @@ class MigrationsPluginTest {
     void afterApplyPluginProjectShouldHaveMigrateInitTask(){
         Task task = project.tasks.migrateInit
         assertNotNull task
-        assertTrue InitTask.class.isInstance(task)
+        assertTrue MigrateInit.class.isInstance(task)
     }
 
     @Test
     void afterApplyPluginProjectShouldHaveMigrateBootstrapTask(){
         Task task = project.tasks.migrateBootstrap
         assertNotNull task
-        assertTrue BootstrapTask.class.isInstance(task)
+        assertTrue MigrateBootstrap.class.isInstance(task)
     }
 
     @Test
     void afterApplyPluginProjectShouldHaveMigrateStatusTask(){
         Task task = project.tasks.migrateStatus
         assertNotNull task
-        assertTrue StatusTask.class.isInstance(task)
+        assertTrue MigrateStatus.class.isInstance(task)
     }
 
     @Test
     void afterApplyPluginProjectShouldHaveMigrateNewTask(){
         Task task = project.tasks.migrateNew
         assertNotNull task
-        assertTrue NewTask.class.isInstance(task)
+        assertTrue MigrateNew.class.isInstance(task)
     }
 
     @Test
     void afterApplyPluginProjectShouldHaveMigrateUpTask(){
         Task task = project.tasks.migrateUp
         assertNotNull task
-        assertTrue UpTask.class.isInstance(task)
+        assertTrue MigrateUp.class.isInstance(task)
     }
 
     @Test
     void afterApplyPluginProjectShouldHaveMigrateDownTask(){
         Task task = project.tasks.migrateDown
         assertNotNull task
-        assertTrue DownTask.class.isInstance(task)
+        assertTrue MigrateDown.class.isInstance(task)
     }
 
 }

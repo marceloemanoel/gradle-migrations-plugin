@@ -1,34 +1,27 @@
 package com.github.marceloemanoel.gradle.migrations.tasks
 
-import java.io.File;
-
 import org.gradle.api.DefaultTask
+
+import com.github.marceloemanoel.gradle.migrations.tasks.parameters.MigrationParameters
 
 class MigrationTask extends DefaultTask {
     
+    def parameters
+    
     protected MigrationTask(){
         setGroup("Migration")
+        parameters = new MigrationParameters(project)
     }
     
     def File getBaseDir(){
-        if(project.hasProperty("b"))
-            return project.file(project.b)
-        project.file(project.migrations.baseDir)
+        parameters.baseDir
     }
     
     def String getEnvironment() {
-        if(project.hasProperty("e"))
-            return project.e
-        if(project.hasProperty("env"))
-            return project.env
-        if(project.hasProperty("environment"))
-            return project.environment
-        project.migrations.environment
+        parameters.environment
     }
     
     def Boolean getForce(){
-        if(project.hasProperty("f"))
-            return project.f
-        project.migrations.force
+        parameters.force
     }
 }

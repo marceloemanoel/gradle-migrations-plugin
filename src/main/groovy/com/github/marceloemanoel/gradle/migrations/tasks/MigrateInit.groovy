@@ -6,9 +6,9 @@ import org.gradle.api.tasks.TaskAction
 
 import com.github.marceloemanoel.gradle.migrations.helper.CommandHelper
 
-class InitTask extends MigrationTask {
+class MigrateInit extends MigrationTask {
 
-    public InitTask(){
+    public MigrateInit(){
         setDescription("Create migrations repository structure")
     }
 
