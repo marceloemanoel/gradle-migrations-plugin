@@ -61,7 +61,7 @@ buildScript {
     mavenCentral()
   }
   dependencies {
-    classpath "com.github.marceloemanoel:gradle-migrations:0.2"
+    classpath "com.github.marceloemanoel:gradle-migrations:0.2.1"
   }
 }
 
