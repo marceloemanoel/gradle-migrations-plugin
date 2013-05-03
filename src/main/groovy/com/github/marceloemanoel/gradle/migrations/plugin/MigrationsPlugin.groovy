@@ -25,7 +25,7 @@ class MigrationsPlugin implements Plugin<Project> {
         }
         
         project.dependencies {
-            "migrations"  "org.mybatis:mybatis:3.0.6"
+            "migrations"  'org.mybatis:mybatis-migrations:3.1.0'
         }
 
         project.task('migrateInit', type: MigrateInit)
