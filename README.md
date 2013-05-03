@@ -56,7 +56,7 @@ Install
 Just put the following code snippet in your build.gradle file.
 
 ```groovy
-buildScript {
+buildscript {
   repositories {
     mavenCentral()
   }
