@@ -1,13 +1,13 @@
 package com.github.marceloemanoel.gradle.migrations.tasks
 
-import java.io.File;
-
 import org.gradle.api.DefaultTask
+import org.gradle.api.logging.LogLevel
 
 class MigrationTask extends DefaultTask {
     
     protected MigrationTask(){
         setGroup("Migration")
+        logging.captureStandardOutput LogLevel.INFO
     }
     
     def File getBaseDir(){

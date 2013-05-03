@@ -5,15 +5,10 @@ apply plugin: "eclipse"
 
 group = "com.github.marceloemanoel"
 archivesBaseName="gradle-migrations"
-version="0.2"
+version="0.3-SNAPSHOT"
 
-if(!hasProperty("sonatypeUsername")){
-    sonatypeUsername = ""
-}
-
-if(!hasProperty("sonatypePassword")){
-    sonatypePassword = ""
-}
+def sonatypeUsername = hasProperty("sonatypeUsername") ? sonatypeUsername : ""
+def sonatypePassword = hasProperty("sonatypePassword") ? sonatypePassword : ""
 
 signing {
     required { gradle.taskGraph.hasTask("uploadArchives") }
