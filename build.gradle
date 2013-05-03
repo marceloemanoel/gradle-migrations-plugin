@@ -5,7 +5,7 @@ apply plugin: "eclipse"
 
 group = "com.github.marceloemanoel"
 archivesBaseName="gradle-migrations"
-version="0.2"
+version="0.3"
 
 if(!hasProperty("sonatypeUsername")){
     sonatypeUsername = ""
@@ -28,7 +28,7 @@ dependencies {
     compile gradleApi()
     groovy localGroovy() 
     
-    compile "org.mybatis:mybatis:3.0.6"
+    compile 'org.mybatis:mybatis-migrations:3.1.0'
     testCompile 'junit:junit:4.11'
     
 }
