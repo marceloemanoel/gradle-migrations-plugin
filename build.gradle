@@ -21,7 +21,7 @@ repositories {
 
 dependencies {
     compile gradleApi()
-    groovy localGroovy() 
+    compile localGroovy() 
     
     compile "org.mybatis:mybatis:3.0.6"
     testCompile 'junit:junit:4.11'
@@ -29,7 +29,7 @@ dependencies {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = "1.4"
+    gradleVersion = "1.6"
 }
 
 tasks.withType(Compile) {
