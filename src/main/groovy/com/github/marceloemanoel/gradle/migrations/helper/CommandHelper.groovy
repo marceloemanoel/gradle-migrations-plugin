@@ -5,11 +5,32 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 
 final class CommandHelper {
-
-    public static updateDriverClassLoader(Project project, BaseCommand command) {
-        def dependencies = project.getConfigurations().migrationsDriver.files.collect {
+    
+    private Project project;
+    
+    public CommandHelper(Project project) {
+        this.project = project;
+    }
+    
+    public updateDriverClassLoader(BaseCommand command) {
+        def dependencies = getDependencies();
+        command.setDriverClassLoader(new URLClassLoader(dependencies.toArray(new URL[dependencies.size])))
+    }
+    
+    def getDependencies() {
+        configuration().files.collect {
             it.toURI().toURL()
         }
-        command.setDriverClassLoader(new URLClassLoader(dependencies.toArray(new URL[dependencies.size])))
+    }
+    
+    def configuration() {
+        def migrationDriver = project.getConfigurations().findByName("migrationDriver");
+        if(migrationDriver != null) {
+            project.logger.warn("The 'migrationDriver' configuration has been deprecated and is scheduled to be removed in the next release. It is now replaced by the 'compile' configuration.")
+            migrationDriver;
+        }
+        else {
+            project.getConfigurations().findByName("compile");
+        }
     }
 }
