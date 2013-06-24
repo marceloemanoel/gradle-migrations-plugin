@@ -4,16 +4,14 @@ import org.apache.ibatis.migration.commands.UpCommand
 import org.apache.ibatis.migration.options.SelectedOptions;
 import org.gradle.api.tasks.TaskAction
 
-import com.github.marceloemanoel.gradle.migrations.helper.CommandHelper
-import com.github.marceloemanoel.gradle.migrations.tasks.parameters.MigrationStepParameter
+import com.github.marceloemanoel.gradle.migrations.helper.ClassLoaderProvider
+import com.github.marceloemanoel.gradle.migrations.tasks.parameters.MigrationStepParameters
 
 class MigrateUp extends MigrationTask {
     
-    MigrationStepParameter parameters
-    
     public MigrateUp(){
         setDescription("Apply any pending migration following creation order. Configurable params: steps")
-        parameters = new MigrationStepParameter(project)
+        parameters = new MigrationStepParameters(project)
     }
 
     @TaskAction

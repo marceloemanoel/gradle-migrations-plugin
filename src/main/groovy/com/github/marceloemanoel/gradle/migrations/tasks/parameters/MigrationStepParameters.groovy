@@ -2,9 +2,9 @@ package com.github.marceloemanoel.gradle.migrations.tasks.parameters
 
 import org.gradle.api.Project
 
-class MigrationStepParameter extends MigrationParameters {
+class MigrationStepParameters extends MigrationParameters {
     
-    public MigrationStepParameter(Project project) {
+    public MigrationStepParameters(Project project) {
         super(project)
     }
     

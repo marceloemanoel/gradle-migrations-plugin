@@ -13,7 +13,7 @@ import com.github.marceloemanoel.gradle.migrations.plugin.MigrationsPlugin;
 class StepParameterTest {
     
     def Project project
-    def MigrationStepParameter parameter
+    def MigrationStepParameters parameter
     
     @Before
     void setUp() {
