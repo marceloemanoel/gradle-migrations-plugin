@@ -34,17 +34,16 @@ public class CommandHelperTest {
 
     @Test
     void testUpdateDriverClassLoader() {
-        commandHelper.updateDriverClassLoader(command);
-        verify(command).setDriverClassLoader(any(ClassLoader.class));
+        assertNotNull commandHelper.driverClassLoader
     }
 
     @Test
     void configurationReturnsMigrationDriverIfItIsDefined() {
-        project.configurations {
-            migrationDriver
+        project.dependencies {
+            migrationsDriver 'mysql:mysql-connector-java:5+'
         }
         commandHelper = new CommandHelper(project);
-        assertEquals("migrationDriver", commandHelper.configuration().getName());
+        assertEquals("migrationsDriver", commandHelper.configuration().getName());
     }
     
     @Test
