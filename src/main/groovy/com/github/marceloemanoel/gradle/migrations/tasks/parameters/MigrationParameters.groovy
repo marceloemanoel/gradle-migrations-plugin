@@ -17,12 +17,11 @@ class MigrationParameters {
     }
     
     def String getEnvironment() {
-        if(project.hasProperty("e"))
-            return project.e
-        if(project.hasProperty("env"))
-            return project.env
-        if(project.hasProperty("environment"))
-            return project.environment
+        def properties = ["e", "env", "environment"]
+        for (String property : properties) {
+            if(project.hasProperty(property))
+                return project[property]
+        }
         project.migrations.environment
     }
     

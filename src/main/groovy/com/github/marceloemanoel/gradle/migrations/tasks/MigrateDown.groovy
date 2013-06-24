@@ -1,6 +1,7 @@
 package com.github.marceloemanoel.gradle.migrations.tasks
 
 import org.apache.ibatis.migration.commands.DownCommand
+import org.apache.ibatis.migration.options.SelectedOptions;
 import org.gradle.api.tasks.TaskAction
 
 import com.github.marceloemanoel.gradle.migrations.helper.CommandHelper
@@ -17,8 +18,13 @@ class MigrateDown extends MigrationTask {
 
     @TaskAction
     void status() {
-        def command = new DownCommand(baseDir, environment, force)
-        CommandHelper.updateDriverClassLoader(project, command)
+        def options = new SelectedOptions()
+        options.environment = environment
+        options.force = force
+        options.paths.basePath = baseDir
+         
+        def command = new DownCommand(options)
+        command.setDriverClassLoader(driverClassLoader)
         command.execute(parameters.steps)
     }
 }

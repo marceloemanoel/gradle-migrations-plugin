@@ -1,6 +1,7 @@
 package com.github.marceloemanoel.gradle.migrations.tasks
 
 import org.apache.ibatis.migration.commands.NewCommand
+import org.apache.ibatis.migration.options.SelectedOptions;
 import org.gradle.api.tasks.TaskAction
 
 import com.github.marceloemanoel.gradle.migrations.helper.CommandHelper
@@ -18,8 +19,15 @@ class MigrateNew extends MigrationTask {
     @TaskAction
     def executeMigrations() {
         parameters.validate()
-        def command = new NewCommand(baseDir, environment, parameters.template, force)
-        CommandHelper.updateDriverClassLoader(project, command)
+        
+        def options = new SelectedOptions();
+        options.environment = environment
+        options.template = parameters.template
+        options.force = force
+        options.paths.basePath = baseDir
+        
+        def command = new NewCommand(options)
+        command.setDriverClassLoader(driverClassLoader)
         command.execute(parameters.description)
     }
 }

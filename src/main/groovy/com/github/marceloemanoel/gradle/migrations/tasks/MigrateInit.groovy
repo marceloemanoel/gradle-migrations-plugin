@@ -25,7 +25,8 @@ class MigrateInit extends MigrationTask {
                 return
             }
         }
-        SelectedOptions options = new SelectedOptions()
+        
+        def options = new SelectedOptions()
         options.force = force
         options.environment = environment
         options.paths.basePath = baseDir

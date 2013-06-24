@@ -1,11 +1,8 @@
 package com.github.marceloemanoel.gradle.migrations.tasks
 
 import org.apache.ibatis.migration.commands.StatusCommand
-import org.gradle.api.DefaultTask
+import org.apache.ibatis.migration.options.SelectedOptions
 import org.gradle.api.tasks.TaskAction
-
-import com.github.marceloemanoel.gradle.migrations.helper.CommandHelper
-
 
 class MigrateStatus extends MigrationTask {
     
@@ -15,8 +12,13 @@ class MigrateStatus extends MigrationTask {
 
     @TaskAction
     void status() {
-        def command = new StatusCommand(baseDir, environment, force)
-        CommandHelper.updateDriverClassLoader(project, command)
+        def options = new SelectedOptions();
+        options.environment = environment
+        options.force = force
+        options.paths.basePath = baseDir
+        
+        def command = new StatusCommand(options)
+        command.setDriverClassLoader(driverClassLoader)
         command.execute()
     }
 }
