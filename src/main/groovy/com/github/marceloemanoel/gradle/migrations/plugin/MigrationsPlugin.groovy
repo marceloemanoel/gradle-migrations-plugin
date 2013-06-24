@@ -7,6 +7,7 @@ import com.github.marceloemanoel.gradle.migrations.tasks.MigrateBootstrap
 import com.github.marceloemanoel.gradle.migrations.tasks.MigrateDown
 import com.github.marceloemanoel.gradle.migrations.tasks.MigrateInit
 import com.github.marceloemanoel.gradle.migrations.tasks.MigrateNew
+import com.github.marceloemanoel.gradle.migrations.tasks.MigrateScript
 import com.github.marceloemanoel.gradle.migrations.tasks.MigrateStatus
 import com.github.marceloemanoel.gradle.migrations.tasks.MigrateUp
 
@@ -31,6 +32,7 @@ class MigrationsPlugin implements Plugin<Project> {
         project.task('migrateInit', type: MigrateInit)
         project.task("migrateBootstrap", type: MigrateBootstrap)
         project.task("migrateStatus", type: MigrateStatus)
+        project.task("migrateScript", type: MigrateScript)
         project.task("migrateNew", type: MigrateNew)
         project.task("migrateUp", type: MigrateUp)
         project.task("migrateDown", type: MigrateDown)
