@@ -20,6 +20,7 @@ class MigrationsPlugin implements Plugin<Project> {
         project.getRepositories().mavenCentral()
         
         project.configurations {
+            migrationsDriver
             migrations
         }
         
