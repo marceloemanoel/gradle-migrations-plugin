@@ -2,7 +2,7 @@ package com.github.marceloemanoel.gradle.migrations.tasks
 
 import org.gradle.api.DefaultTask
 
-import com.github.marceloemanoel.gradle.migrations.helper.CommandHelper
+import com.github.marceloemanoel.gradle.migrations.helper.ClassLoaderProvider
 import com.github.marceloemanoel.gradle.migrations.tasks.parameters.MigrationParameters
 
 class MigrationTask extends DefaultTask {
@@ -13,7 +13,7 @@ class MigrationTask extends DefaultTask {
     protected MigrationTask(){
         setGroup("Migration")
         parameters = new MigrationParameters(project)
-        helper = new CommandHelper(project)
+        helper = new ClassLoaderProvider(project)
     }
     
     def File getBaseDir(){
