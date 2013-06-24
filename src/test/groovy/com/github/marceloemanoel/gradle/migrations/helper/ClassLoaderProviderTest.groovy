@@ -1,4 +1,4 @@
-package com.github.marceloemanoel.gradle.migrations;
+package com.github.marceloemanoel.gradle.migrations.helper;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -11,14 +11,14 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.github.marceloemanoel.gradle.migrations.helper.CommandHelper;
+import com.github.marceloemanoel.gradle.migrations.helper.ClassLoaderProvider;
 import com.github.marceloemanoel.gradle.migrations.plugin.MigrationsPlugin;
 
-public class CommandHelperTest {
+public class ClassLoaderProviderTest {
     
     @Mock
     def BaseCommand command
-    def CommandHelper commandHelper
+    def ClassLoaderProvider provider
     def Project project
     
     @Before
@@ -29,12 +29,12 @@ public class CommandHelperTest {
         project.configurations {
             compile
         }
-        commandHelper = new CommandHelper(project);
+        provider = new ClassLoaderProvider(project);
     }
 
     @Test
     void testUpdateDriverClassLoader() {
-        assertNotNull commandHelper.driverClassLoader
+        assertNotNull provider.driverClassLoader
     }
 
     @Test
@@ -42,13 +42,13 @@ public class CommandHelperTest {
         project.dependencies {
             migrationsDriver 'mysql:mysql-connector-java:5+'
         }
-        commandHelper = new CommandHelper(project);
-        assertEquals("migrationsDriver", commandHelper.configuration().getName());
+        provider = new ClassLoaderProvider(project);
+        assertEquals("migrationsDriver", provider.configuration().getName());
     }
     
     @Test
     void configurationReturnsCompileIfMigrationDriverIsNotDefined() {
-        assertEquals("compile", commandHelper.configuration().getName());
+        assertEquals("compile", provider.configuration().getName());
     }
 
 }

@@ -5,12 +5,12 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration;
 
-final class CommandHelper {
+final class ClassLoaderProvider {
 
     private Project project;
     private Configuration configuration;
 
-    public CommandHelper(Project project) {
+    public ClassLoaderProvider(Project project) {
         this.project = project;
     }
 
