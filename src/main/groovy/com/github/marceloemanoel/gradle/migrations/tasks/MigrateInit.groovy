@@ -5,8 +5,6 @@ import org.apache.ibatis.migration.options.SelectedOptions;
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 
-import com.github.marceloemanoel.gradle.migrations.helper.CommandHelper
-
 class MigrateInit extends MigrationTask {
 
     public MigrateInit(){
