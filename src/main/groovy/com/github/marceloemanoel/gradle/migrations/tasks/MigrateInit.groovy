@@ -1,8 +1,7 @@
 package com.github.marceloemanoel.gradle.migrations.tasks
 
 import org.apache.ibatis.migration.commands.InitializeCommand
-import org.apache.ibatis.migration.options.SelectedOptions;
-import org.gradle.api.DefaultTask
+import org.apache.ibatis.migration.options.SelectedOptions
 import org.gradle.api.tasks.TaskAction
 
 class MigrateInit extends MigrationTask {
