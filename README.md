@@ -38,6 +38,11 @@ The plugin adds a group of tasks named **Migrations** composed by:
       <td>description, template</td>
     </tr>
     <tr>
+      <td><a href="#migratescript">migrateScript</a></td>
+      <td>Generate a script that can migrate a schema from one version into another</td>
+      <td>v1, v2, out</td>
+    </tr>
+    <tr>
       <td><a href="#migrateup-and-migratedown">migrateUp</a></td>
       <td>Apply any pending migration following creation order.</td>
       <td>steps</td>
@@ -268,6 +273,37 @@ This parameter can be abreviated as simple as this:
 
 > gradle migrateNew -Pd="This is a sample migration"
 
+migrateScript
+-------------
+
+This task enables the creation of a schema file that reflects the needed changes from one version into another.
+This makes possible the communication with other professionals like DBAs or a team of them. Since you can't change
+the database hand over the file to them so they can execute it.
+
+The migrateScript can generate evolutionary changes as well as involutionary changes like [migrateDown](#migrateup-and-migratedown).
+The final behavior will depend on the two versions given. For instance, given the following migrations:
+
+<pre>
+ID             Applied At          Description
+==================================================================
+20090802210445 2009-08-04 22:51:17 create changelog
+20090804225207 2009-08-04 22:51:17 create author table
+20090804225328 2009-08-05 24:55:23 create blog table
+20090804225333 2009-08-04 22:51:17 create post table
+</pre>
+
+If executed like this:
+> gradle migrateScript -Pv1=20090802210445 -Pv2=20090804225333
+
+The task will print to the console all the sql code to move from version v1 evolving the database to version v2.
+In the other hand, if executed like this:
+> gradle migrateScript -Pv1=20090804225333 -Pv2=20090802210445
+
+The task will print to the console all the sql code needed to move from version v1 devolving the database into version v2.      
+This task also accepts another parameter. The `out` parameter enables the redirection of the output to a given file.
+Using the last command to redirect to a file called `migration.sql` it should be like this:
+> gradle migrateScript -Pv1=20090804225333 -Pv2=20090802210445 -Pout=migration.sql  
+  
 migrateUp and migrateDown
 -------------------------
 
