@@ -8,15 +8,16 @@ class MigrateScriptParameters extends MigrationParameters {
         super(project)
     }
     
-    def getVersion1() {
+    def String getVersion1() {
         if(project.hasProperty("v1"))
-            return project.v1;
+            return project.v1
         ""
     }
     
-    def getVersion2() {
+    def String getVersion2() {
         if(project.hasProperty("v2"))
             return project.v2
         ""
     }
+
 }

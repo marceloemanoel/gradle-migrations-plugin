@@ -8,7 +8,7 @@ import com.github.marceloemanoel.gradle.migrations.tasks.parameters.MigrateScrip
 
 class MigrateScript extends MigrationTask {
     
-    public MigrateDown(){
+    public MigrateScript(){
         setDescription("Rewinds the database to a previous stage. Configurable params: steps")
         parameters = new MigrateScriptParameters(project)
     }
@@ -22,6 +22,6 @@ class MigrateScript extends MigrationTask {
          
         def command = new ScriptCommand(options)
         command.setDriverClassLoader(driverClassLoader)
-        command.execute(parameters.version1, parameters.version2)
+        command.execute("${parameters.version1} ${parameters.version2}")
     }
 }
