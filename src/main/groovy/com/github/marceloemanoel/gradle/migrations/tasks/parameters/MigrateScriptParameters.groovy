@@ -20,4 +20,10 @@ class MigrateScriptParameters extends MigrationParameters {
         ""
     }
 
+    def File getOutputFile() {
+        if(project.hasProperty("out")) {
+            return project.file(project.out)
+        }
+        null
+    }
 }

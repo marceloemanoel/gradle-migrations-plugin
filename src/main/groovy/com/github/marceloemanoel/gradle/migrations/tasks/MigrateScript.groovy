@@ -22,6 +22,10 @@ class MigrateScript extends MigrationTask {
          
         def command = new ScriptCommand(options)
         command.setDriverClassLoader(driverClassLoader)
+
+        if(parameters.outputFile){
+            command.setPrintStream(new PrintStream(parameters.outputFile))
+        }
         command.execute("${parameters.version1} ${parameters.version2}")
     }
 }
