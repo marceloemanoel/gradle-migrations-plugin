@@ -8,11 +8,11 @@ archivesBaseName="gradle-migrations"
 version="0.3"
 
 if(!hasProperty("sonatypeUsername")){
-    sonatypeUsername = ""
+    project.ext.sonatypeUsername = ""
 }
 
 if(!hasProperty("sonatypePassword")){
-    sonatypePassword = ""
+    project.ext.sonatypePassword = ""
 }
 
 signing {
