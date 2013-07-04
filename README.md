@@ -52,6 +52,11 @@ The plugin adds a group of tasks named **Migrations** composed by:
       <td>Rewinds the database to a previous stage.</td>
       <td>steps</td>
     </tr>
+    <tr>
+      <td><a href="#migratepending">migratePending</a></td>
+      <td>Apply any pending migrations regardless of their order.</td>
+      <td>steps</td>
+    </tr>
   </tbody>
 </table>
 
@@ -330,7 +335,37 @@ or
 
 > gradle migrateDown -Ps=3
 
+migratePending
+--------------
 
+At development time on a team with more than one developer it is likely that many migration script are created. If anytime
+occurs a situation where someone create a migration before you but commit it to the source control later than you. You'll
+have a situation like this: 
+
+<pre>
+ID             Applied At          Description
+==================================================================
+20090802210445 2009-08-04 22:51:17 create changelog
+20090804225207 2009-08-04 22:51:17 create author table
+20090804225328    ...pending...    create blog table
+20090804225333 2009-08-04 22:51:17 create post table
+</pre>
+
+The expected behaviour should be to rollback your changes until the previous pending version and then use migrateUp to apply
+all of your pending migrations in order. But, if you think that the changes are not conflicting, then go ahead and apply them
+out of order with the migratePending command. The expected result should be something like this:
+
+<pre>
+ID             Applied At          Description
+==================================================================
+20090802210445 2009-08-04 22:51:17 create changelog
+20090804225207 2009-08-04 22:51:17 create author table
+20090804225328 2009-08-05 24:55:23 create blog table
+20090804225333 2009-08-04 22:51:17 create post table
+</pre>
+
+This should be used while in development phase. Since in production you must already have a pack of migrations ready do to the trick. 
+ 
 License
 =======
 
