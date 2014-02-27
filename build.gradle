@@ -27,10 +27,10 @@ repositories {
 
 dependencies {
     compile gradleApi()
-    compile localGroovy() 
-    
-    compile 'org.mybatis:mybatis-migrations:3.1.1-SNAPSHOT'
-    
+    compile localGroovy()
+
+    compile 'org.mybatis:mybatis-migrations:3.2.0'
+
     testCompile 'junit:junit:4.11'
     testCompile 'org.mockito:mockito-all:1.9.5'
 }
@@ -41,13 +41,13 @@ task wrapper(type: Wrapper) {
 
 tasks.withType(Compile) {
     options.encoding = "UTF-8"
-} 
+}
 
 task groovydocJar(type: Jar, dependsOn: groovydoc) {
     classifier = 'javadoc'
     from 'build/docs/groovydoc'
 }
- 
+
 task sourcesJar(type: Jar) {
     from sourceSets.main.allSource
     classifier = 'sources'
@@ -57,23 +57,23 @@ uploadArchives {
     repositories {
         mavenDeployer {
             beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
- 
+
             repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
               authentication(userName: sonatypeUsername, password: sonatypePassword)
             }
- 
+
             pom.project {
                name 'gradle-migrations-plugin'
                packaging 'jar'
                description 'Gradle plugin to integrate mybatis migrations'
                url 'https://github.com/marceloemanoel/gradle-migrations-plugin'
- 
+
                scm {
                    url 'git@github.com:marceloemanoel/gradle-migrations-plugin.git'
                    connection 'scm:git@github.com:marceloemanoel/gradle-migrations-plugin.git'
                    developerConnection 'scm:git@github.com:marceloemanoel/gradle-migrations-plugin.git'
                }
- 
+
                licenses {
                    license {
                        name 'The Apache Software License, Version 2.0'
@@ -81,7 +81,7 @@ uploadArchives {
                        distribution 'repo'
                    }
                }
- 
+
                developers {
                    developer {
                        id 'marceloemanoel'
