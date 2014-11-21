@@ -1,7 +1,7 @@
 Gradle Migrations Plugin [![Build Status](https://travis-ci.org/marceloemanoel/gradle-migrations-plugin.png?branch=v0.3)](https://travis-ci.org/marceloemanoel/gradle-migrations-plugin?branch=v0.3)
 =============================
 
-Provide gradle build integration with [mybatis migrations](https://code.google.com/p/mybatis/wiki/Migration). 
+Provide gradle build integration with [mybatis migrations](http://mybatis.github.io/migrations). 
 The plugin adds a group of tasks named **Migrations** composed by:
 
 <table width="100%">
