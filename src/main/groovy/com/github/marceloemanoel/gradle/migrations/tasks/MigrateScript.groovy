@@ -26,6 +26,8 @@ class MigrateScript extends MigrationTask {
         if(parameters.outputFile){
             command.setPrintStream(new PrintStream(parameters.outputFile))
         }
-        command.execute("${parameters.version1} ${parameters.version2}")
+		
+		String version1 = new BigDecimal(parameters.version1).subtract(BigDecimal.ONE).toPlainString();
+        command.execute("${version1} ${parameters.version2}")
     }
 }
