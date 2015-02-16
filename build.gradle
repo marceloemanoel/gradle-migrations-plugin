@@ -35,11 +35,7 @@ dependencies {
     testCompile 'org.mockito:mockito-all:1.9.5'
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = "1.8"
-}
-
-tasks.withType(Compile) {
+tasks.withType(GroovyCompile) {
     options.encoding = "UTF-8"
 }
 
