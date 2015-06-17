@@ -7,6 +7,7 @@ import com.github.marceloemanoel.gradle.migrations.tasks.BootstrapTask
 import com.github.marceloemanoel.gradle.migrations.tasks.DownTask
 import com.github.marceloemanoel.gradle.migrations.tasks.InitTask
 import com.github.marceloemanoel.gradle.migrations.tasks.NewTask
+import com.github.marceloemanoel.gradle.migrations.tasks.PendingTask
 import com.github.marceloemanoel.gradle.migrations.tasks.StatusTask
 import com.github.marceloemanoel.gradle.migrations.tasks.UpTask
 
@@ -31,6 +32,7 @@ class MigrationsPlugin implements Plugin<Project> {
         project.task('migrateInit', type: InitTask)
         project.task("migrateBootstrap", type: BootstrapTask)
         project.task("migrateStatus", type: StatusTask)
+        project.task("migratePending", type: PendingTask)
         
         project.task("migrateNew", type: NewTask) {
             if(project.hasProperty("d")) {

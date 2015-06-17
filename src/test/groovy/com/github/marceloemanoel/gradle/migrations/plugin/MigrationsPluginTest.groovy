@@ -12,6 +12,7 @@ import com.github.marceloemanoel.gradle.migrations.tasks.BootstrapTask
 import com.github.marceloemanoel.gradle.migrations.tasks.DownTask
 import com.github.marceloemanoel.gradle.migrations.tasks.InitTask
 import com.github.marceloemanoel.gradle.migrations.tasks.NewTask
+import com.github.marceloemanoel.gradle.migrations.tasks.PendingTask
 import com.github.marceloemanoel.gradle.migrations.tasks.StatusTask
 import com.github.marceloemanoel.gradle.migrations.tasks.UpTask
 
@@ -67,4 +68,10 @@ class MigrationsPluginTest {
         assertTrue DownTask.class.isInstance(task)
     }
 
+    @Test
+    void afterApplyPluginProjectShouldHaveMigratePendingTask(){
+        Task task = project.tasks.migratePending
+        assertNotNull task
+        assertTrue PendingTask.class.isInstance(task)
+    }
 }
