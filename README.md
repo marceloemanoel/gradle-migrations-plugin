@@ -264,7 +264,7 @@ will do to your database. It is used like this:
 
 > gradle migrateNew -Pdescription="This is a sample migration"
 
-This parameter can be abreviated as simple as this:
+This parameter can be abbreviated as simple as this:
 
 > gradle migrateNew -Pd="This is a sample migration"
 
